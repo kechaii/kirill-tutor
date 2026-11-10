@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <g fill="#F97316" fill-opacity="0.05" font-family="monospace" font-size="16">
+    <!-- Код и языки -->
+    <text x="15" y="35">&lt;/&gt;</text>
+    <text x="110" y="50">{ }</text>
+    <text x="60" y="110">Py</text>
+    <text x="140" y="130">C++</text>
+    <text x="30" y="170">( )</text>
+    
+    <!-- Математика -->
+    <text x="100" y="30" font-family="serif" font-size="20">∑</text>
+    <text x="20" y="90" font-family="serif" font-size="20">π</text>
+    <text x="150" y="90" font-family="serif" font-size="20">√</text>
+    <text x="80" y="170" font-family="serif" font-size="20">∞</text>
+    <text x="160" y="180" font-family="serif" font-size="18">∫</text>
+    
+    <!-- Символы -->
+    <text x="5" y="140" font-size="14">#</text>
+    <text x="100" y="80" font-size="14">@</text>
+    <text x="170" y="25" font-size="14">=</text>
+  </g>
+</svg>
