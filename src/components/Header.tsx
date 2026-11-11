@@ -9,7 +9,7 @@ const navLinks = [
   { name: "Квизы", href: "#quiz" },
   { name: "Тарифы", href: "#pricing" },
   { name: "FAQ", href: "#faq" },
-  { name: "Контакты", href: "#contact" }, // Добавил для синхронизации с футером
+  { name: "Контакты", href: "#contact" },
 ];
 
 export default function Header() {
@@ -19,7 +19,6 @@ export default function Header() {
     setIsMenuOpen(false);
     const element = document.querySelector(href);
     if (element) {
-      // Отступ 80px чтобы sticky header не перекрывал секцию
       const headerOffset = 80;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition =
@@ -34,12 +33,12 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Логотип */}
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-2">
+          {/* Логотип — не переносится, уменьшается на мобильных */}
           <Link
             href="/"
-            className="text-xl font-bold text-brand-black hover:text-brand-yellow transition-colors"
+            className="flex-shrink-0 text-base sm:text-lg md:text-xl font-bold text-brand-black hover:text-brand-yellow transition-colors whitespace-nowrap"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -61,7 +60,7 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Кнопка "Записаться" (десктоп) */}
+          {/* Кнопка "Записаться" — скрыта на мобильных, есть в бургер-меню */}
           <button
             onClick={() => handleNavClick("#contact")}
             className="hidden md:inline-flex items-center justify-center rounded-lg bg-brand-red px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-indigo-800 hover:-translate-y-0.5 active:ring-2 active:ring-brand-black"
@@ -69,10 +68,10 @@ export default function Header() {
             Записаться
           </button>
 
-          {/* Бургер-меню (мобильное) */}
+          {/* Бургер-меню */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+            className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors flex-shrink-0"
             aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={isMenuOpen}
           >
@@ -115,7 +114,7 @@ export default function Header() {
                 </button>
               ))}
 
-              {/* Кнопка записи внутри мобильного меню для удобства */}
+              {/* Кнопка записи внутри мобильного меню */}
               <div className="p-4 pb-6">
                 <button
                   onClick={() => handleNavClick("#contact")}
