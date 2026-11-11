@@ -4,7 +4,7 @@ import { useState } from "react";
 import BackgroundIcons from "./BackgroundIcons";
 
 const categories = [
-  { id: "all", label: "Все направления" },
+  { id: "all", label: "Все" }, // Сократил для лучшего вида на мобильных
   { id: "math", label: "Математика" },
   { id: "informatics", label: "Информатика" },
   { id: "programming", label: "Программирование" },
@@ -68,7 +68,7 @@ const directionsData = [
   },
   {
     id: 6,
-    category: "informatics", // Теперь это часть информатики!
+    category: "informatics",
     type: "Школьная программа",
     title: "Информатика (5–8 класс)",
     audience: "Средняя школа",
@@ -90,17 +90,17 @@ export default function Directions() {
   return (
     <section
       id="directions"
-      className="w-full bg-brand-white py-16 sm:py-24 relative overflow-hidden"
+      className="w-full bg-brand-white py-12 sm:py-16 lg:py-24 relative overflow-hidden"
     >
       <BackgroundIcons />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Заголовок секции */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold tracking-tight text-brand-black sm:text-4xl">
+        <div className="text-center mb-8 sm:mb-12 px-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-brand-black leading-tight">
             Чему я обучаю
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Выберите направление, чтобы увидеть подробную программу и результаты
             учеников.
           </p>
@@ -108,7 +108,7 @@ export default function Directions() {
 
         {/* Радио-кнопки фильтрации */}
         <div
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-12 px-2"
           role="radiogroup"
           aria-label="Фильтр направлений"
         >
@@ -116,7 +116,7 @@ export default function Directions() {
             <label
               key={cat.id}
               className={`
-                relative cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold border-2 transition-all duration-200
+                relative cursor-pointer rounded-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base font-semibold border-2 transition-all duration-200 min-h-[44px] flex items-center justify-center
                 focus-within:ring-2 focus-within:ring-brand-black focus-within:ring-offset-2
                 ${
                   activeCategory === cat.id
@@ -139,37 +139,37 @@ export default function Directions() {
         </div>
 
         {/* Сетка карточек */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredDirections.map((direction) => (
             <div
               key={direction.id}
-              className="group relative flex flex-col rounded-xl border-2 border-gray-100 bg-brand-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-brand-yellow"
+              className="group relative flex flex-col rounded-xl border-2 border-gray-100 bg-brand-white p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-brand-yellow"
             >
               {/* Верхняя часть: Иконка и Бейдж типа */}
               <div className="flex justify-between items-start mb-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-brand-gray text-3xl transition-colors group-hover:bg-brand-yellow">
+                <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-lg bg-brand-gray text-2xl sm:text-3xl transition-colors group-hover:bg-brand-yellow">
                   {direction.icon}
                 </div>
-                <span className="inline-flex items-center rounded-full bg-brand-gray px-2.5 py-0.5 text-xs font-medium text-brand-black group-hover:bg-brand-yellow/20">
+                <span className="inline-flex items-center rounded-full bg-brand-gray px-2 sm:px-2.5 py-0.5 text-xs font-medium text-brand-black group-hover:bg-brand-yellow/20">
                   {direction.type}
                 </span>
               </div>
 
               {/* Контент */}
-              <h3 className="text-xl font-bold text-brand-black mb-2">
+              <h3 className="text-lg sm:text-xl font-bold text-brand-black mb-2 leading-tight">
                 {direction.title}
               </h3>
               <p className="mb-3 text-sm font-semibold text-brand-red">
                 {direction.audience}
               </p>
-              <p className="mb-6 flex-grow text-gray-600 leading-relaxed">
+              <p className="mb-6 flex-grow text-sm sm:text-base text-gray-600 leading-relaxed">
                 {direction.description}
               </p>
 
               {/* Результат (якорь доверия) */}
-              <div className="mt-auto flex items-center gap-2 rounded-lg bg-brand-gray px-3 py-2 group-hover:bg-brand-yellow/10 transition-colors">
-                <span className="text-brand-red font-bold">🏆</span>
-                <span className="text-sm font-semibold text-brand-black">
+              <div className="mt-auto flex items-center gap-2 rounded-lg bg-brand-gray px-3 py-2.5 group-hover:bg-brand-yellow/10 transition-colors">
+                <span className="text-brand-red font-bold text-lg">🏆</span>
+                <span className="text-xs sm:text-sm font-semibold text-brand-black">
                   {direction.result}
                 </span>
               </div>

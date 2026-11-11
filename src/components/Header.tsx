@@ -6,9 +6,10 @@ import Link from "next/link";
 const navLinks = [
   { name: "Направления", href: "#directions" },
   { name: "Методика", href: "#methodology" },
-  { name: "Квизы", href: "#quiz" }, // <-- Добавили
+  { name: "Квизы", href: "#quiz" },
   { name: "Тарифы", href: "#pricing" },
   { name: "FAQ", href: "#faq" },
+  { name: "Контакты", href: "#contact" }, // Добавил для синхронизации с футером
 ];
 
 export default function Header() {
@@ -48,12 +49,12 @@ export default function Header() {
           </Link>
 
           {/* Десктопная навигация */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => handleNavClick(link.href)}
-                className="text-sm font-medium text-gray-700 hover:text-brand-yellow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-black focus-visible:ring-offset-2 rounded"
+                className="text-sm font-medium text-gray-700 hover:text-brand-yellow transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-black focus-visible:ring-offset-2 rounded px-2 py-1"
               >
                 {link.name}
               </button>
@@ -71,40 +72,58 @@ export default function Header() {
           {/* Бургер-меню (мобильное) */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-black rounded"
-            aria-label="Открыть меню"
+            className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+            aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={isMenuOpen}
           >
-            <span
-              className={`block h-0.5 w-6 bg-brand-black transition-transform ${isMenuOpen ? "rotate-45 translate-y-2" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-6 bg-brand-black transition-opacity ${isMenuOpen ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`block h-0.5 w-6 bg-brand-black transition-transform ${isMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
-            />
+            <svg
+              className="w-6 h-6 text-brand-black"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {isMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
           </button>
         </div>
 
         {/* Мобильное меню */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <nav className="flex flex-col gap-3">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <nav className="flex flex-col py-2">
               {navLinks.map((link) => (
                 <button
                   key={link.name}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-left text-base font-medium text-gray-700 hover:text-brand-yellow transition-colors px-2 py-2 rounded hover:bg-gray-50"
+                  className="w-full text-left px-6 py-4 text-base font-medium text-brand-black hover:bg-brand-gray hover:text-brand-red transition-colors border-b border-gray-100 last:border-0 min-h-[48px] flex items-center"
                 >
                   {link.name}
                 </button>
               ))}
-              <button
-                onClick={() => handleNavClick("#contact")}
-                className="mt-2 w-full rounded-lg bg-brand-red px-5 py-3 text-base font-semibold text-white shadow-md transition-all hover:bg-indigo-800 active:ring-2 active:ring-brand-black"
-              >
-                Записаться на диагностику
-              </button>
+
+              {/* Кнопка записи внутри мобильного меню для удобства */}
+              <div className="p-4 pb-6">
+                <button
+                  onClick={() => handleNavClick("#contact")}
+                  className="w-full flex items-center justify-center rounded-lg bg-brand-red px-5 py-3.5 text-base font-semibold text-white shadow-md transition-all hover:bg-indigo-800 active:ring-2 active:ring-brand-black min-h-[48px]"
+                >
+                  Записаться на пробное
+                </button>
+              </div>
             </nav>
           </div>
         )}

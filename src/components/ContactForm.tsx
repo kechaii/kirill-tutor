@@ -45,7 +45,7 @@ export default function ContactForm() {
           phone: formData.phone,
           messenger: selectedMessenger,
           subject: selectedSubject,
-          tariff: formData.tariff, // <-- Добавили тариф в отправку
+          tariff: formData.tariff,
           comment: formData.comment,
         }),
       });
@@ -67,51 +67,60 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" className="w-full bg-brand-gray py-16 sm:py-24">
+    <section
+      id="contact"
+      className="w-full bg-brand-gray py-12 sm:py-16 lg:py-24"
+    >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
           {/* Левая часть: Текст и контакты */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5 sm:gap-6 text-center lg:text-left">
             <div>
-              <h2 className="text-3xl font-extrabold tracking-tight text-brand-black sm:text-4xl">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-brand-black leading-tight">
                 Запишитесь на бесплатную диагностику
               </h2>
-              <p className="mt-4 text-lg text-gray-600">
+              <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600">
                 Оставьте заявку, и я свяжусь с вами в течение дня, чтобы
                 обсудить цели и назначить время первого урока.
               </p>
             </div>
 
-            <div className="space-y-4 pt-4">
+            <div className="space-y-4 sm:space-y-5 pt-2 sm:pt-4 max-w-md mx-auto lg:mx-0">
               <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-xl">
+                <span className="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-xl sm:text-2xl">
                   📱
                 </span>
-                <div>
-                  <p className="font-semibold text-brand-black">Мессенджеры</p>
-                  <p className="text-sm text-gray-600">
+                <div className="text-left">
+                  <p className="font-semibold text-brand-black text-sm sm:text-base">
+                    Мессенджеры
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-600">
                     Telegram, Max, WhatsApp
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-xl">
+                <span className="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-xl sm:text-2xl">
                   ⏱️
                 </span>
-                <div>
-                  <p className="font-semibold text-brand-black">Время ответа</p>
-                  <p className="text-sm text-gray-600">
+                <div className="text-left">
+                  <p className="font-semibold text-brand-black text-sm sm:text-base">
+                    Время ответа
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-600">
                     Обычно в течение 1-2 часов
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-xl">
+                <span className="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-lg bg-brand-yellow text-xl sm:text-2xl">
                   🎁
                 </span>
-                <div>
-                  <p className="font-semibold text-brand-black">Бонус</p>
-                  <p className="text-sm text-gray-600">
+                <div className="text-left">
+                  <p className="font-semibold text-brand-black text-sm sm:text-base">
+                    Бонус
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-600">
                     Тест на определение уровня в подарок
                   </p>
                 </div>
@@ -120,22 +129,22 @@ export default function ContactForm() {
           </div>
 
           {/* Правая часть: Форма */}
-          <div className="rounded-2xl bg-white p-8 shadow-lg border border-gray-100">
-            <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="rounded-2xl bg-white p-5 sm:p-6 lg:p-8 shadow-lg border border-gray-100">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
               {/* Радио-кнопки выбора предмета */}
               <div>
                 <label className="block text-sm font-semibold text-brand-black mb-3">
                   Выберите направление:
                 </label>
                 <div
-                  className="grid grid-cols-1 sm:grid-cols-3 gap-3"
+                  className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3"
                   role="radiogroup"
                 >
                   {subjects.map((sub) => (
                     <label
                       key={sub.id}
                       className={`
-                        relative cursor-pointer rounded-lg border-2 px-3 py-3 text-center text-xs sm:text-sm font-medium transition-all duration-200 break-words
+                        relative cursor-pointer rounded-lg border-2 px-3 py-3 text-center text-xs sm:text-sm font-medium transition-all duration-200 break-words leading-tight min-h-[48px] flex items-center justify-center
                         focus-within:ring-2 focus-within:ring-brand-black focus-within:ring-offset-2
                         ${
                           selectedSubject === sub.id
@@ -163,7 +172,7 @@ export default function ContactForm() {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1.5"
                   >
                     Ваше имя
                   </label>
@@ -175,7 +184,7 @@ export default function ContactForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-brand-black transition-colors"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-brand-black transition-colors focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 outline-none min-h-[48px]"
                     placeholder="Иван"
                   />
                 </div>
@@ -183,7 +192,7 @@ export default function ContactForm() {
                 <div>
                   <label
                     htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1.5"
                   >
                     Телефон
                   </label>
@@ -195,7 +204,7 @@ export default function ContactForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
                     }
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-brand-black transition-colors"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-brand-black transition-colors focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 outline-none min-h-[48px]"
                     placeholder="+7 (999) 000-00-00"
                   />
                 </div>
@@ -203,7 +212,7 @@ export default function ContactForm() {
                 <div>
                   <label
                     htmlFor="messenger"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1.5"
                   >
                     Предпочитаемый мессенджер
                   </label>
@@ -211,7 +220,7 @@ export default function ContactForm() {
                     id="messenger"
                     value={selectedMessenger}
                     onChange={(e) => setSelectedMessenger(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-brand-black transition-colors bg-white"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-brand-black transition-colors bg-white focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 outline-none min-h-[48px]"
                   >
                     {messengers.map((msg) => (
                       <option key={msg.id} value={msg.id}>
@@ -221,11 +230,11 @@ export default function ContactForm() {
                   </select>
                 </div>
 
-                {/* === НОВЫЙ БЛОК: Выбор тарифа === */}
+                {/* Выбор тарифа */}
                 <div>
                   <label
                     htmlFor="tariff"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1.5"
                   >
                     Интересующий тариф
                   </label>
@@ -235,7 +244,7 @@ export default function ContactForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, tariff: e.target.value })
                     }
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-brand-black transition-colors bg-white"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-brand-black transition-colors bg-white focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 outline-none min-h-[48px]"
                   >
                     {tariffs.map((t) => (
                       <option key={t.id} value={t.id}>
@@ -244,12 +253,11 @@ export default function ContactForm() {
                     ))}
                   </select>
                 </div>
-                {/* === КОНЕЦ БЛОКА === */}
 
                 <div>
                   <label
                     htmlFor="comment"
-                    className="block text-sm font-medium text-gray-700 mb-1"
+                    className="block text-sm font-medium text-gray-700 mb-1.5"
                   >
                     Цель обучения или вопрос (необязательно)
                   </label>
@@ -260,7 +268,7 @@ export default function ContactForm() {
                     onChange={(e) =>
                       setFormData({ ...formData, comment: e.target.value })
                     }
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-brand-black transition-colors resize-none"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-base text-brand-black transition-colors resize-none focus:border-brand-yellow focus:ring-2 focus:ring-brand-yellow/20 outline-none"
                     placeholder="Например: подготовка к ЕГЭ на 80+ баллов"
                   />
                 </div>
@@ -269,12 +277,12 @@ export default function ContactForm() {
               {/* Кнопка отправки */}
               <button
                 type="submit"
-                className="w-full rounded-lg bg-brand-red px-6 py-4 text-base font-bold text-white shadow-md transition-all hover:bg-indigo-800 hover:-translate-y-0.5 active:ring-2 active:ring-brand-black active:ring-offset-2"
+                className="w-full rounded-lg bg-brand-red px-6 py-3.5 text-base font-bold text-white shadow-md transition-all hover:bg-indigo-800 hover:-translate-y-0.5 active:ring-2 active:ring-brand-black active:ring-offset-2 min-h-[48px] flex items-center justify-center"
               >
                 Записаться на диагностику
               </button>
 
-              <p className="text-xs text-center text-gray-500">
+              <p className="text-xs text-center text-gray-500 leading-relaxed px-2">
                 Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
               </p>
             </form>

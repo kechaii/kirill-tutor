@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import BackgroundIcons from "./BackgroundIcons";
 
 // Данные о ценах
@@ -68,7 +67,7 @@ const tariffs = [
     features: {
       math: [
         "Всё из стандартного курса",
-        "Гарантия результата (80+ баллов)",
+        "Гарантия результата (5 на ОГЭ / 80+ ЕГЭ)",
         "Помощь с поступлением в вуз",
         "Бесплатные доп. занятия при отставании",
         "Разбор всех типов заданий ЕГЭ/ОГЭ",
@@ -92,41 +91,52 @@ export default function Pricing() {
   const [direction, setDirection] = useState<"math" | "programming">("math");
   const currentPrices = pricingData[direction];
 
+  const scrollToContact = () => {
+    const element = document.querySelector("#contact");
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    }
+  };
+
   return (
     <section
       id="pricing"
-      className="w-full bg-brand-gray py-16 sm:py-24 relative overflow-hidden"
+      className="w-full bg-brand-gray py-12 sm:py-16 lg:py-24 relative overflow-hidden"
     >
       <BackgroundIcons />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Заголовок */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold tracking-tight text-brand-black sm:text-4xl">
+        <div className="text-center mb-8 sm:mb-12 px-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-brand-black leading-tight">
             Тарифы и форматы занятий
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Прозрачные цены без скрытых доплат. Выберите направление, чтобы
             увидеть актуальную стоимость.
           </p>
         </div>
 
         {/* Радио-переключатель направления */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-8 sm:mb-12 px-2">
           <div
-            className="inline-flex p-1 bg-white rounded-xl border border-gray-200 shadow-sm"
+            className="inline-flex flex-col sm:flex-row p-1 sm:p-1.5 bg-white rounded-xl border border-gray-200 shadow-sm w-full sm:w-auto"
             role="radiogroup"
           >
             {(["math", "programming"] as const).map((dir) => (
               <label
                 key={dir}
                 className={`
-                  relative cursor-pointer rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-200
+                  relative cursor-pointer rounded-lg px-3 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold transition-all duration-200 min-h-[44px] flex items-center justify-center text-center leading-tight w-full sm:w-auto
                   focus-within:ring-2 focus-within:ring-brand-black focus-within:ring-offset-2
                   ${
                     direction === dir
                       ? "bg-brand-yellow text-white shadow-md"
-                      : "text-gray-600 hover:text-brand-black"
+                      : "text-gray-600 hover:text-brand-black hover:bg-gray-50"
                   }
                 `}
               >
@@ -140,14 +150,14 @@ export default function Pricing() {
                 />
                 {dir === "math"
                   ? "📐 Математика и Информатика"
-                  : "💻 Программирование (Python/C++)"}
+                  : "💻 Программирование"}
               </label>
             ))}
           </div>
         </div>
 
         {/* Сетка карточек */}
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {tariffs.map((tariff) => {
             const price =
               currentPrices[tariff.id as keyof typeof currentPrices];
@@ -157,8 +167,8 @@ export default function Pricing() {
               <div
                 key={tariff.id}
                 className={`
-                  relative flex flex-col rounded-2xl p-8 border-2 transition-all duration-300
-                  hover:-translate-y-2 hover:shadow-xl
+                  relative flex flex-col rounded-2xl p-5 sm:p-6 lg:p-8 border-2 transition-all duration-300
+                  hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-xl
                   ${
                     tariff.popular
                       ? "border-brand-yellow bg-white shadow-lg scale-[1.02]"
@@ -170,7 +180,7 @@ export default function Pricing() {
                 {tariff.badge && (
                   <div
                     className={`
-                    absolute -top-4 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold uppercase tracking-wide shadow-sm
+                    absolute -top-3 sm:-top-4 left-1/2 -translate-x-1/2 rounded-full px-3 sm:px-4 py-1 text-[10px] sm:text-xs font-bold uppercase tracking-wide shadow-sm whitespace-nowrap
                     ${tariff.popular ? "bg-brand-red text-white" : "bg-brand-yellow text-white"}
                   `}
                   >
@@ -179,29 +189,31 @@ export default function Pricing() {
                 )}
 
                 {/* Заголовок тарифа */}
-                <h3 className="text-xl font-bold text-brand-black mb-2">
+                <h3 className="text-lg sm:text-xl font-bold text-brand-black mb-1 sm:mb-2 leading-tight">
                   {tariff.title}
                 </h3>
-                <p className="text-sm text-gray-500 mb-6">{tariff.duration}</p>
+                <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">
+                  {tariff.duration}
+                </p>
 
                 {/* Цена */}
-                <div className="mb-8">
-                  <span className="text-4xl font-extrabold text-brand-black">
+                <div className="mb-6 sm:mb-8">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-brand-black">
                     {price.toLocaleString("ru-RU")} ₽
                   </span>
-                  <span className="text-sm text-gray-500 ml-2">
+                  <span className="text-xs sm:text-sm text-gray-500 ml-1 sm:ml-2">
                     {tariff.id === "single" ? "/ занятие" : "/ курс"}
                   </span>
                 </div>
 
                 {/* Список преимуществ */}
-                <ul className="flex-grow space-y-3 mb-8">
+                <ul className="flex-grow space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
                   {features.map((feature, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-3 text-sm text-gray-700"
+                      className="flex items-start gap-2.5 sm:gap-3 text-xs sm:text-sm text-gray-700 leading-snug"
                     >
-                      <span className="flex-shrink-0 flex h-5 w-5 items-center justify-center rounded-full bg-brand-yellow/20 text-brand-red text-xs font-bold mt-0.5">
+                      <span className="flex-shrink-0 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-brand-yellow/20 text-brand-red text-[10px] sm:text-xs font-bold mt-0.5">
                         ✓
                       </span>
                       {feature}
@@ -211,29 +223,16 @@ export default function Pricing() {
 
                 {/* Кнопка CTA */}
                 <button
-                  onClick={() => {
-                    const element = document.querySelector("#contact");
-                    if (element) {
-                      const headerOffset = 80;
-                      const elementPosition =
-                        element.getBoundingClientRect().top;
-                      const offsetPosition =
-                        elementPosition + window.pageYOffset - headerOffset;
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth",
-                      });
-                    }
-                  }}
+                  onClick={scrollToContact}
                   className={`
-    w-full inline-flex items-center justify-center rounded-lg px-6 py-3 text-base font-semibold transition-all duration-200
-    focus-visible:ring-2 focus-visible:ring-brand-black focus-visible:ring-offset-2
-    ${
-      tariff.popular
-        ? "bg-brand-red text-white hover:bg-indigo-800 hover:-translate-y-0.5 shadow-md active:ring-2 active:ring-brand-black"
-        : "bg-brand-gray text-brand-black border border-gray-200 hover:bg-brand-yellow hover:text-white hover:border-brand-yellow active:ring-2 active:ring-brand-black"
-    }
-  `}
+                    w-full inline-flex items-center justify-center rounded-lg px-4 sm:px-6 py-3 sm:py-3.5 text-sm sm:text-base font-semibold transition-all duration-200 min-h-[48px]
+                    focus-visible:ring-2 focus-visible:ring-brand-black focus-visible:ring-offset-2
+                    ${
+                      tariff.popular
+                        ? "bg-brand-red text-white hover:bg-indigo-800 hover:-translate-y-0.5 shadow-md active:ring-2 active:ring-brand-black"
+                        : "bg-brand-gray text-brand-black border border-gray-200 hover:bg-brand-yellow hover:text-white hover:border-brand-yellow active:ring-2 active:ring-brand-black"
+                    }
+                  `}
                 >
                   {tariff.id === "single"
                     ? "Записаться на пробное"
@@ -245,9 +244,11 @@ export default function Pricing() {
         </div>
 
         {/* Сноска */}
-        <p className="text-center text-sm text-gray-500 mt-12">
+        <p className="text-center text-xs sm:text-sm text-gray-500 mt-8 sm:mt-12 px-4 leading-relaxed">
           💡 Оплата происходит за час до начала занятия. Пакет можно оплачивать
-          равными частями по договоренности.
+          равными частями по договоренности. <br className="hidden sm:block" />
+          🎁 Перед покупкой любого тарифа — бесплатная диагностика уровня (30
+          минут).
         </p>
       </div>
     </section>

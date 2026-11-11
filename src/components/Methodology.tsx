@@ -3,7 +3,7 @@ import BackgroundIcons from "./BackgroundIcons";
 const steps = [
   {
     number: "01",
-    icon: "🔍",
+    icon: "",
     title: "Диагностика онлайн",
     description:
       "Бесплатное 30-минутное занятие со мной. Определяем текущий уровень, цели и слабые места. Без давления и оценок.",
@@ -58,43 +58,43 @@ export default function Methodology() {
   return (
     <section
       id="methodology"
-      className="w-full bg-brand-gray py-16 sm:py-24 relative overflow-hidden"
+      className="w-full bg-brand-gray py-12 sm:py-16 lg:py-24 relative overflow-hidden"
     >
       <BackgroundIcons />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Заголовок */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold tracking-tight text-brand-black sm:text-4xl">
+        <div className="text-center mb-8 sm:mb-12 px-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-brand-black leading-tight">
             Как проходят занятия
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Прозрачный процесс от первого знакомства до результата
           </p>
         </div>
 
         {/* 4 шага */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-12 sm:mb-16">
           {steps.map((step, index) => (
             <div key={step.number} className="relative">
-              {/* Стрелка-коннектор между шагами (скрыта на мобильных) */}
+              {/* Стрелка-коннектор между шагами (скрыта на мобильных и планшетах) */}
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-10 -right-4 w-8 h-0.5 bg-brand-red z-10" />
               )}
 
-              <div className="bg-brand-white rounded-xl p-6 border-2 border-gray-100 hover:border-brand-yellow transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full">
+              <div className="bg-brand-white rounded-xl p-5 sm:p-6 border-2 border-gray-100 hover:border-brand-yellow transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full">
                 {/* Номер + иконка */}
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl font-black text-brand-red/20">
+                  <span className="text-2xl sm:text-3xl font-black text-brand-red/20">
                     {step.number}
                   </span>
-                  <span className="text-3xl">{step.icon}</span>
+                  <span className="text-2xl sm:text-3xl">{step.icon}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-brand-black mb-2">
+                <h3 className="text-base sm:text-lg font-bold text-brand-black mb-2 leading-tight">
                   {step.title}
                 </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                   {step.description}
                 </p>
               </div>
@@ -103,26 +103,28 @@ export default function Methodology() {
         </div>
 
         {/* Блок подготовки к уроку */}
-        <div className="bg-brand-white rounded-2xl p-8 border-2 border-brand-yellow/30">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="text-3xl">🎒</span>
-            <h3 className="text-2xl font-bold text-brand-black">
+        <div className="bg-brand-white rounded-2xl p-5 sm:p-6 lg:p-8 border-2 border-brand-yellow/30">
+          <div className="flex items-center gap-3 mb-5 sm:mb-6">
+            <span className="text-2xl sm:text-3xl">🎒</span>
+            <h3 className="text-xl sm:text-2xl font-bold text-brand-black leading-tight">
               Как подготовиться к первому уроку
             </h3>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {preparation.map((item) => (
               <div
                 key={item.title}
-                className="flex items-start gap-3 p-4 rounded-lg bg-brand-gray"
+                className="flex items-start gap-3 p-3 sm:p-4 rounded-lg bg-brand-gray"
               >
-                <span className="text-2xl">{item.icon}</span>
-                <div>
-                  <p className="font-semibold text-brand-black text-sm">
+                <span className="text-xl sm:text-2xl flex-shrink-0">
+                  {item.icon}
+                </span>
+                <div className="min-w-0">
+                  <p className="font-semibold text-brand-black text-sm sm:text-base leading-tight">
                     {item.title}
                   </p>
-                  <p className="text-xs text-gray-600 mt-1">
+                  <p className="text-xs text-gray-600 mt-1 leading-snug">
                     {item.description}
                   </p>
                 </div>
@@ -130,7 +132,7 @@ export default function Methodology() {
             ))}
           </div>
 
-          <p className="mt-6 text-sm text-gray-600 text-center">
+          <p className="mt-5 sm:mt-6 text-xs sm:text-sm text-gray-600 text-center leading-relaxed px-2">
             💡 После записи я пришлю подробную инструкцию с ссылками на
             установку всех программ — это займёт 5 минут
           </p>

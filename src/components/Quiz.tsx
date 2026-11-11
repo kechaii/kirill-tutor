@@ -297,9 +297,13 @@ export default function Quiz() {
   const questions = selectedDirection
     ? questionsByDirection[selectedDirection]
     : [];
+
+  const correctCount = answers.filter(
+    (a, i) => a === questions[i]?.correct,
+  ).length;
   const currentLevel = getRecommendation(
     selectedDirection || "",
-    answers.filter((a, i) => a === questions[i]?.correct).length,
+    correctCount,
     questions.length,
   );
 
@@ -350,16 +354,16 @@ export default function Quiz() {
   return (
     <section
       id="quiz"
-      className="w-full bg-brand-gray py-16 sm:py-24 relative overflow-hidden"
+      className="w-full bg-brand-gray py-12 sm:py-16 lg:py-24 relative overflow-hidden"
     >
       <BackgroundIcons />
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Заголовок */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold tracking-tight text-brand-black sm:text-4xl">
+        <div className="text-center mb-8 sm:mb-12 px-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-brand-black leading-tight">
             Проверь свой уровень знаний
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600">
             Выбери направление и пройди короткий тест — узнаешь, с чего лучше
             начать
           </p>
@@ -367,20 +371,27 @@ export default function Quiz() {
 
         {/* === ЭКРАН 1: ВЫБОР НАПРАВЛЕНИЯ === */}
         {!selectedDirection && (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {quizDirections.map((dir) => (
               <button
                 key={dir.id}
                 onClick={() => handleStart(dir.id)}
                 className={`
-                  group relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-300
+                  group relative overflow-hidden rounded-2xl p-5 sm:p-6 text-left transition-all duration-300
                   hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-black focus-visible:ring-offset-2
                   bg-gradient-to-br ${dir.color} text-white
+                  min-h-[140px] flex flex-col justify-between
                 `}
               >
-                <div className="text-4xl mb-3">{dir.icon}</div>
-                <h3 className="text-lg font-bold mb-1">{dir.title}</h3>
-                <p className="text-sm opacity-90">{dir.description}</p>
+                <div>
+                  <div className="text-3xl sm:text-4xl mb-3">{dir.icon}</div>
+                  <h3 className="text-base sm:text-lg font-bold mb-1 leading-tight">
+                    {dir.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm opacity-90 leading-snug">
+                    {dir.description}
+                  </p>
+                </div>
                 <div className="absolute bottom-4 right-4 text-2xl opacity-0 transition-opacity group-hover:opacity-100">
                   →
                 </div>
@@ -391,24 +402,24 @@ export default function Quiz() {
 
         {/* === ЭКРАН 2: КВИЗ === */}
         {selectedDirection && !isFinished && (
-          <div className="rounded-2xl bg-white p-8 shadow-lg border border-gray-100">
+          <div className="rounded-2xl bg-white p-5 sm:p-8 shadow-lg border border-gray-100">
             {/* Кнопка "Назад" */}
             <button
               onClick={handleRestart}
-              className="mb-6 text-sm font-medium text-gray-600 hover:text-brand-black transition-colors"
+              className="mb-4 sm:mb-6 text-sm font-medium text-gray-600 hover:text-brand-black transition-colors flex items-center gap-1"
             >
               ← Выбрать другое направление
             </button>
 
             {/* Прогресс-бар */}
-            <div className="mb-8">
-              <div className="flex justify-between text-sm font-medium text-gray-600 mb-2">
+            <div className="mb-6 sm:mb-8">
+              <div className="flex justify-between text-xs sm:text-sm font-medium text-gray-600 mb-2">
                 <span>
                   Вопрос {currentQuestion + 1} из {questions.length}
                 </span>
                 <span>{Math.round(progress)}%</span>
               </div>
-              <div className="h-2 w-full rounded-full bg-gray-200 overflow-hidden">
+              <div className="h-2 sm:h-2.5 w-full rounded-full bg-gray-200 overflow-hidden">
                 <div
                   className="h-full bg-brand-yellow transition-all duration-500 ease-out"
                   style={{ width: `${progress}%` }}
@@ -417,17 +428,20 @@ export default function Quiz() {
             </div>
 
             {/* Вопрос */}
-            <h3 className="text-xl font-bold text-brand-black mb-6">
+            <h3 className="text-lg sm:text-xl font-bold text-brand-black mb-4 sm:mb-6 leading-snug">
               {questions[currentQuestion].question}
             </h3>
 
             {/* Варианты ответов */}
-            <div className="space-y-3 mb-8" role="radiogroup">
+            <div
+              className="space-y-2 sm:space-y-3 mb-6 sm:mb-8"
+              role="radiogroup"
+            >
               {questions[currentQuestion].options.map((option, index) => (
                 <label
                   key={index}
                   className={`
-                    relative flex items-center cursor-pointer rounded-lg border-2 px-5 py-4 transition-all duration-200
+                    relative flex items-center cursor-pointer rounded-lg border-2 px-4 py-3 sm:px-5 sm:py-4 transition-all duration-200 min-h-[48px]
                     focus-within:ring-2 focus-within:ring-brand-black focus-within:ring-offset-2
                     ${
                       selectedAnswer === index
@@ -446,7 +460,7 @@ export default function Quiz() {
                   />
                   <span
                     className={`
-                      flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 mr-4 transition-all
+                      flex h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 items-center justify-center rounded-full border-2 mr-3 sm:mr-4 transition-all
                       ${
                         selectedAnswer === index
                           ? "border-brand-yellow bg-brand-yellow"
@@ -455,10 +469,10 @@ export default function Quiz() {
                     `}
                   >
                     {selectedAnswer === index && (
-                      <span className="h-2.5 w-2.5 rounded-full bg-white" />
+                      <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-white" />
                     )}
                   </span>
-                  <span className="text-base font-medium text-brand-black">
+                  <span className="text-sm sm:text-base font-medium text-brand-black leading-snug">
                     {option}
                   </span>
                 </label>
@@ -470,7 +484,7 @@ export default function Quiz() {
               onClick={handleNext}
               disabled={selectedAnswer === null}
               className={`
-                w-full rounded-lg px-6 py-4 text-base font-bold transition-all duration-200
+                w-full rounded-lg px-6 py-3.5 sm:py-4 text-base font-bold transition-all duration-200 min-h-[48px]
                 focus-visible:ring-2 focus-visible:ring-brand-black focus-visible:ring-offset-2
                 ${
                   selectedAnswer === null
@@ -488,46 +502,47 @@ export default function Quiz() {
 
         {/* === ЭКРАН 3: РЕЗУЛЬТАТ === */}
         {isFinished && (
-          <div className="rounded-2xl bg-white p-8 shadow-lg border border-gray-100 text-center">
-            <div className="mb-6">
-              <span className="text-6xl">{currentLevel.emoji}</span>
+          <div className="rounded-2xl bg-white p-5 sm:p-8 shadow-lg border border-gray-100 text-center">
+            <div className="mb-4 sm:mb-6">
+              <span className="text-5xl sm:text-6xl">{currentLevel.emoji}</span>
             </div>
 
-            <h3 className="text-2xl font-extrabold text-brand-black mb-2">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-brand-black mb-2">
               Тест завершён!
             </h3>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8">
               Правильных ответов:{" "}
               <span className="font-bold text-brand-red">
-                {answers.filter((a, i) => a === questions[i].correct).length} из{" "}
-                {questions.length}
+                {correctCount} из {questions.length}
               </span>
             </p>
 
             {/* Уровень */}
             <div
-              className={`rounded-xl ${currentLevel.color} text-white p-6 mb-8 shadow-lg`}
+              className={`rounded-xl ${currentLevel.color} text-white p-5 sm:p-6 mb-6 sm:mb-8 shadow-lg`}
             >
-              <h4 className="text-xl font-bold mb-2">{currentLevel.title}</h4>
-              <p className="text-sm opacity-90 leading-relaxed mb-3">
+              <h4 className="text-lg sm:text-xl font-bold mb-2">
+                {currentLevel.title}
+              </h4>
+              <p className="text-sm sm:text-base opacity-90 leading-relaxed mb-3 sm:mb-4">
                 {currentLevel.description}
               </p>
-              <div className="inline-block rounded-full bg-white/20 px-4 py-1 text-sm font-semibold">
+              <div className="inline-block rounded-full bg-white/20 px-4 py-1.5 text-sm font-semibold">
                 💡 Рекомендация: {currentLevel.tariff}
               </div>
             </div>
 
             {/* Кнопки действий */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={scrollToContact}
-                className="flex-1 rounded-lg bg-brand-red px-6 py-4 text-base font-bold text-white shadow-md transition-all hover:bg-indigo-800 hover:-translate-y-0.5 active:ring-2 active:ring-brand-black"
+                className="flex-1 w-full rounded-lg bg-brand-red px-6 py-3.5 sm:py-4 text-base font-bold text-white shadow-md transition-all hover:bg-indigo-800 hover:-translate-y-0.5 active:ring-2 active:ring-brand-black min-h-[48px]"
               >
                 Записаться на диагностику
               </button>
               <button
                 onClick={handleRestart}
-                className="flex-1 rounded-lg border-2 border-brand-black bg-transparent px-6 py-4 text-base font-semibold text-brand-black transition-all hover:bg-brand-black hover:text-white active:ring-2 active:ring-brand-black"
+                className="flex-1 w-full rounded-lg border-2 border-brand-black bg-transparent px-6 py-3.5 sm:py-4 text-base font-semibold text-brand-black transition-all hover:bg-brand-black hover:text-white active:ring-2 active:ring-brand-black min-h-[48px]"
               >
                 Пройти другой тест
               </button>

@@ -14,7 +14,7 @@ const faqData = [
     id: 2,
     question: "Можно ли отменить или перенести занятие?",
     answer:
-      "Да, вы можете отменить или перенести занятие бесплатно, предупредив минимум за 12 часа. При отмене менее чем за 12 часа занятие считается проведённым и оплачивается полностью.",
+      "Да, вы можете отменить или перенести занятие бесплатно, предупредив минимум за 12 часов. При отмене менее чем за 12 часов занятие считается проведённым и оплачивается полностью.",
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const faqData = [
     id: 6,
     question: "Есть ли гарантия результата?",
     answer:
-      "В тарифе «Интенсив Под ключ» я гарантирую результат 5 на ОГЭ по математике и 80+ баллов на ЕГЭ по информатике. Если ученик не достигает цели — провожу дополнительные занятия бесплатно до достижения результата. Гарантия работает при регулярном выполнении домашних заданий.",
+      "В тарифе «Интенсив Под ключ» я гарантирую результат: 5 на ОГЭ по математике и 80+ баллов на ЕГЭ по информатике. Если ученик не достигает цели — провожу дополнительные занятия бесплатно до достижения результата. Гарантия работает при регулярном посещении и выполнении рекомендаций.",
   },
   {
     id: 7,
@@ -58,22 +58,22 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="w-full bg-brand-gray py-16 sm:py-24 relative overflow-hidden"
+      className="w-full bg-brand-gray py-12 sm:py-16 lg:py-24 relative overflow-hidden"
     >
       <BackgroundIcons />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Заголовок */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold tracking-tight text-brand-black sm:text-4xl">
+        <div className="text-center mb-8 sm:mb-12 px-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-brand-black leading-tight">
             Частые вопросы
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600">
             Ответы на самые популярные вопросы о занятиях
           </p>
         </div>
 
         {/* Аккордеон */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {faqData.map((faq) => {
             const isOpen = openId === faq.id;
 
@@ -81,7 +81,7 @@ export default function FAQ() {
               <div
                 key={faq.id}
                 className={`
-                  rounded-xl border-2 bg-white transition-all duration-300
+                  rounded-xl border-2 bg-white transition-all duration-300 overflow-hidden
                   ${isOpen ? "border-brand-black shadow-md" : "border-gray-200 hover:border-brand-yellow"}
                 `}
               >
@@ -89,13 +89,13 @@ export default function FAQ() {
                 <button
                   onClick={() => toggleQuestion(faq.id)}
                   className={`
-                    w-full flex items-center justify-between px-6 py-5 text-left transition-all duration-200
+                    w-full flex items-center justify-between gap-3 px-4 py-4 sm:px-6 sm:py-5 text-left transition-all duration-200 min-h-[48px]
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-black focus-visible:ring-offset-2
                     ${isOpen ? "bg-brand-yellow/5" : ""}
                   `}
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base font-semibold text-brand-black pr-4">
+                  <span className="text-sm sm:text-base font-semibold text-brand-black leading-snug">
                     {faq.question}
                   </span>
                   <span
@@ -112,10 +112,10 @@ export default function FAQ() {
                 <div
                   className={`
                     overflow-hidden transition-all duration-300 ease-in-out
-                    ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
+                    ${isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}
                   `}
                 >
-                  <div className="px-6 pb-5 text-gray-700 leading-relaxed">
+                  <div className="px-4 pb-4 sm:px-6 sm:pb-5 text-sm sm:text-base text-gray-700 leading-relaxed">
                     {faq.answer}
                   </div>
                 </div>
@@ -125,11 +125,13 @@ export default function FAQ() {
         </div>
 
         {/* CTA после FAQ */}
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">Не нашли ответ на свой вопрос?</p>
+        <div className="text-center mt-8 sm:mt-12 px-4">
+          <p className="text-sm sm:text-base text-gray-600 mb-4">
+            Не нашли ответ на свой вопрос?
+          </p>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center rounded-lg bg-brand-red px-6 py-3 text-base font-semibold text-white shadow-md transition-all hover:bg-indigo-800 hover:-translate-y-0.5 active:ring-2 active:ring-brand-black"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-lg bg-brand-red px-6 py-3.5 text-base font-semibold text-white shadow-md transition-all hover:bg-indigo-800 hover:-translate-y-0.5 active:ring-2 active:ring-brand-black min-h-[48px]"
           >
             Написать мне
           </a>
