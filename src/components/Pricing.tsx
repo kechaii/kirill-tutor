@@ -5,15 +5,20 @@ import BackgroundIcons from "./BackgroundIcons";
 
 // Данные о ценах
 const pricingData = {
-  math: {
-    single: 1500,
-    pack: 11200,
-    intensive: 40500,
+  school: {
+    single: 700,
+    pack: 4800,
+    intensive: 16500,
+  },
+  oge: {
+    single: 900,
+    pack: 6400,
+    intensive: 22500,
   },
   programming: {
-    single: 1700,
-    pack: 12800,
-    intensive: 46500,
+    single: 1100,
+    pack: 8000,
+    intensive: 28500,
   },
 };
 
@@ -23,9 +28,15 @@ const tariffs = [
     title: "Разовое занятие",
     duration: "60 минут",
     features: {
-      math: [
+      school: [
         "Диагностика уровня",
         "Разбор конкретной темы",
+        "Индивидуальный план занятия",
+        "Короткий отчёт родителям",
+      ],
+      oge: [
+        "Диагностика уровня",
+        "Разбор заданий ОГЭ/ЕГЭ",
         "Индивидуальный план занятия",
         "Короткий отчёт родителям",
       ],
@@ -44,16 +55,22 @@ const tariffs = [
     title: "Стандартный курс",
     duration: "8 занятий",
     features: {
-      math: [
+      school: [
         "Всё из разового занятия",
         "Индивидуальный план обучения",
         "Промежуточный контроль",
         "Связь с репетитором 24/7",
       ],
+      oge: [
+        "Всё из разового занятия",
+        "Индивидуальный план подготовки",
+        "Пробные экзамены",
+        "Связь с репетитором 24/7",
+      ],
       programming: [
         "Всё из разового занятия",
         "Индивидуальный план обучения",
-        "Промежуточный контроль",
+        "Первые проекты",
         "Связь с репетитором 24/7",
       ],
     },
@@ -65,19 +82,27 @@ const tariffs = [
     title: "Интенсив «Под ключ»",
     duration: "30 занятий",
     features: {
-      math: [
+      school: [
+        "Всё из стандартного курса",
+        "Крепкая база для ОГЭ",
+        "Ликвидация всех пробелов",
+        "Бесплатные доп. занятия при отставании",
+        "Подготовка к школьным олимпиадам",
+        "Пробные контрольные каждый месяц",
+      ],
+      oge: [
         "Всё из стандартного курса",
         "Гарантия результата (5 на ОГЭ / 80+ ЕГЭ)",
-        "Помощь с поступлением в вуз",
+        "Разбор всех типов заданий",
         "Бесплатные доп. занятия при отставании",
-        "Разбор всех типов заданий ЕГЭ/ОГЭ",
         "Пробные экзамены каждый месяц",
+        "Помощь с поступлением",
       ],
       programming: [
         "Всё из стандартного курса",
         "Основы программирования с нуля",
-        "Первые проекты, написанные ребёнком самостоятельно",
-        "Подготовка к олимпиадам по информатике",
+        "Проекты в портфолио",
+        "Подготовка к олимпиадам",
         "Помощь с выбором направления в IT",
         "Портфолио проектов для поступления",
       ],
@@ -87,8 +112,16 @@ const tariffs = [
   },
 ];
 
+const directions = [
+  { id: "school", label: "5–8 класс", icon: "📚" },
+  { id: "oge", label: "ОГЭ/ЕГЭ Информатика", icon: "🎯" },
+  { id: "programming", label: "Программирование", icon: "💻" },
+];
+
 export default function Pricing() {
-  const [direction, setDirection] = useState<"math" | "programming">("math");
+  const [direction, setDirection] = useState<"school" | "oge" | "programming">(
+    "school",
+  );
   const currentPrices = pricingData[direction];
 
   const scrollToContact = () => {
@@ -121,20 +154,20 @@ export default function Pricing() {
           </p>
         </div>
 
-        {/* Радио-переключатель направления */}
+        {/* Переключатель направлений */}
         <div className="flex justify-center mb-8 sm:mb-12 px-2">
           <div
             className="inline-flex flex-col sm:flex-row p-1 sm:p-1.5 bg-white rounded-xl border border-gray-200 shadow-sm w-full sm:w-auto"
             role="radiogroup"
           >
-            {(["math", "programming"] as const).map((dir) => (
+            {directions.map((dir) => (
               <label
-                key={dir}
+                key={dir.id}
                 className={`
-                  relative cursor-pointer rounded-lg px-3 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold transition-all duration-200 min-h-[44px] flex items-center justify-center text-center leading-tight w-full sm:w-auto
+                  relative cursor-pointer rounded-lg px-3 sm:px-5 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold transition-all duration-200 min-h-[44px] flex items-center justify-center text-center leading-tight w-full sm:w-auto gap-1.5
                   focus-within:ring-2 focus-within:ring-brand-black focus-within:ring-offset-2
                   ${
-                    direction === dir
+                    direction === dir.id
                       ? "bg-brand-yellow text-white shadow-md"
                       : "text-gray-600 hover:text-brand-black hover:bg-gray-50"
                   }
@@ -143,14 +176,15 @@ export default function Pricing() {
                 <input
                   type="radio"
                   name="direction"
-                  value={dir}
-                  checked={direction === dir}
-                  onChange={() => setDirection(dir)}
+                  value={dir.id}
+                  checked={direction === dir.id}
+                  onChange={() =>
+                    setDirection(dir.id as "school" | "oge" | "programming")
+                  }
                   className="sr-only"
                 />
-                {dir === "math"
-                  ? "📐 Математика и Информатика"
-                  : "💻 Программирование"}
+                <span className="text-base sm:text-lg">{dir.icon}</span>
+                <span>{dir.label}</span>
               </label>
             ))}
           </div>
